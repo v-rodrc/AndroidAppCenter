@@ -13,7 +13,14 @@ import com.microsoft.appcenter.crashes.Crashes;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button button1;
+    Button btn;
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+       // Crashes.generateTestCrash();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,15 +30,21 @@ public class MainActivity extends AppCompatActivity {
         AppCenter.start(getApplication(), "da13410d-be8a-4b3e-bf2a-8cae42ed0031",
                 Analytics.class, Crashes.class);
 
+btn = (Button)findViewById(R.id.button);
 
-        button1 = (Button) findViewById(R.id.button);
 
-        button1.setOnClickListener(new View.OnClickListener() {
+        Crashes.isEnabled();
+
+        Crashes.setEnabled(true);
+
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "The button was clicked", Toast.LENGTH_LONG).show();
-                Crashes.generateTestCrash();
+                Toast.makeText(MainActivity.this, "This button has been clicked", Toast.LENGTH_LONG).show();
+              Analytics.trackEvent("button clicked");
             }
         });
+
+
     }
 }
