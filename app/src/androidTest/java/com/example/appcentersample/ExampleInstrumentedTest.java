@@ -15,6 +15,11 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
+import org.junit.Rule;
+import org.junit.After;
+import com.microsoft.appcenter.espresso.Factory;
+import com.microsoft.appcenter.espresso.ReportHelper;
+
 /**
  * Instrumented test, which will execute on an Android device.
  *
@@ -22,6 +27,15 @@ import static org.junit.Assert.*;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
+
+    @Rule
+    public ReportHelper reportHelper = Factory.getReportHelper();
+
+    @After
+    public void TearDown(){
+        reportHelper.label("Stopping App");
+    }
+
     @Test
     public void useAppContext() {
         // Context of the app under test.
